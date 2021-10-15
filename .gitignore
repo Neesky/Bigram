@@ -1,3 +1,7 @@
+*.txt
+!data.txt
+*.bin
+/__pycache__
 ##----------Android----------
 # build
 *.apk

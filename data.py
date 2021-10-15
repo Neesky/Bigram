@@ -48,7 +48,14 @@ def Modify(s):
             s_modify3 = s_modify3 + s_modify1_list[i] + " "
 
     return s_modify3
+def NewModify(s):
+    if s[-1] in (r"[%s]+"%punc):
+        s = s[:-1]
+    if s[0] in (r"[%s]+" %punc):
+        s = s[1:]
 
+    s_modify1 = re.sub(r"[%s]+"%punc, " ", s)   ## r'\w+'为正则表达式，匹配多个英文单词或者数字
+    return s_modify1
 def get_data(input_file,output_file):
     temp_file = "NeeskyMaxtempLPicFca.txt"
     character_tagging(input_file, temp_file)
@@ -57,8 +64,10 @@ def get_data(input_file,output_file):
     output_data = codecs.open(output_file, 'w', 'utf-8')
 
     for line in input_data.readlines():
-        output_data.write(Modify(line))
-
+        #output_data.write(Modify(line))
+        output_data.write(NewModify(line))
     input_data.close()
     output_data.close()
     os.remove(temp_file)
+if __name__ == "__main__":
+    get_data("data.txt","out.txt")
