@@ -5,12 +5,6 @@ import argparse
 import katz
 import numpy as np
 def statistical_single_word(corpus_path, output_path):
-    """
-    统计语料库中的单个单词的词频
-    :param corpus_path: 语料库路径
-    :param output_path: 输出保存单个单词词频的路径
-    :return:
-    """
     # 通过 SafeJClass 取得 HanLP 中的 CorpusLoader 类
     CorpusLoader = SafeJClass('com.hankcs.hanlp.corpus.document.CorpusLoader')
     # 通过 SafeJClass 取得 HanLP 中的 NatureDictionaryMaker 类
@@ -72,7 +66,7 @@ def checkpro(splitsentence,CoreDictionary,CoreBiGramTableDictionary,mList,NoBost
             p = p * katz.predicted(splitsentence[i],splitsentence[i+1], CoreDictionary, CoreBiGramTableDictionary,mList,NoBostot,NoBosEostot,N,gtmax = 10)
         else:
             p = p * (1.0 * (CoreBiGramTableDictionary.getBiFrequency(splitsentence[i], splitsentence[i + 1]) + 1) / (
-                        CoreDictionary.getTermFrequency(splitsentence[i]) + 1))
+                        CoreDictionary.getTermFrequency(splitsentence[i]) + NoBosEostot))
     # global temptot
     # temptot = temptot + 1
     # print(temptot)
