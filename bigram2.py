@@ -100,18 +100,21 @@ def parse_arguments(argv):
                         help='Sentence to be predicted.', default='香港各界举行活动喜庆元旦')
     parser.add_argument('--type', type=str,
                         help='Sentence to be predicted.', default='katz')
+    parser.add_argument('--use_pred_maxprob', type=bool,
+                        help='Sentence to be predicted.', default=False)
     return parser.parse_args(argv)
 def main(args):
     st = "始##始"
     ed = "末##末"
     type = args.type
-    splitsentence = splitword.get_splitsentence(args.sentence, "始##始", "末##末")
+    splitsentence = splitword.get_splitsentence(args.sentence, st, ed)
     CoreDictionary, CoreBiGramTableDictionary, mList,NoBostot,NoBosEostot,N = get_prepared(st,ed,args.origin_data_file,args.modified_data_file)
 
     print("待预测语句：",args.sentence)
     print("分词后的语句：",splitsentence)
-    bestp,beststr = max_prob(splitsentence, CoreDictionary, CoreBiGramTableDictionary, st, ed,mList,NoBostot,NoBosEostot,N,type)
-    print("最佳排列语句：",beststr,",该语句概率为",bestp)
+    if args.use_pred_maxprob:
+        bestp,beststr = max_prob(splitsentence, CoreDictionary, CoreBiGramTableDictionary, st, ed,mList,NoBostot,NoBosEostot,N,type)
+        print("最佳排列语句：",beststr,",该语句概率为",bestp)
     print("原语句：",args.sentence,",该语句概率为",checkpro(splitsentence, CoreDictionary, CoreBiGramTableDictionary,mList, NoBostot,NoBosEostot,N,type))
 
 if __name__ == '__main__':

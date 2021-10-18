@@ -1,4 +1,5 @@
 import numpy as np
+no_word_p = 1e-10
 def C_(num,N):
     return (num+1) * N[num + 1] / N[num]
 def A(num,N):
@@ -13,6 +14,8 @@ def predicted(word1,word2, CoreDictionary, CoreBiGramTableDictionary,mList,NoBos
     numword12 = CoreBiGramTableDictionary.getBiFrequency(word1,word2)
     numword1 = CoreDictionary.getTermFrequency(word1)
     if(numword12 == 0):
+        if(CoreDictionary.getTermFrequency(word2)==0 or CoreDictionary.getTermFrequency(word2)==0):
+            return no_word_p
         z1sumup = 0
         z1sumdown = 0
         for word in mList :
